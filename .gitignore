@@ -1,0 +1,41 @@
+# Ignore system files
+.DS_Store
+
+# Ignore user-specific IDE configurations
+.idea/
+
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore sensitive environment files
+appsettings.Development.json
+appsettings.json
+
+# Ignore database files
+*.db
+
+# Ignore MediaStorage directory
+MediaStorage/
+
+# Ignore the folder for temporary files (if used)
+*.bak
+*.tmp
+
+# Ignore logs
+*.log
+
+# Ignore dependency directories (e.g., NuGet packages)
+packages/
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore JetBrains Rider directories
+.idea/
+
+# Ignore ASP.NET Core runtime and publish output
+wwwroot/
+
+# Ignore npm, yarn, or other package manager directories
+node_modules/
