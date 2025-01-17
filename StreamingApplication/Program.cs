@@ -1,8 +1,8 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -171,6 +171,29 @@ using (var scope = app.Services.CreateScope()) {
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
+    // Create media storage for development testing.
+    using (var scope = app.Services.CreateScope()) {
+        var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        
+        var movieDirectory = Path.Combine(env.ContentRootPath, "MediaStorage", "Movies");
+        var showDirectory = Path.Combine(env.ContentRootPath, "MediaStorage", "Shows");
+    
+        if (!Directory.Exists(movieDirectory)) {
+            Directory.CreateDirectory(movieDirectory);
+            logger.LogInformation($"Created directory: {movieDirectory}");
+        } else {
+            logger.LogInformation($"Directory already exists: {movieDirectory}");
+        }
+
+        if (!Directory.Exists(showDirectory)) {
+            Directory.CreateDirectory(showDirectory);
+            logger.LogInformation($"Created directory: {showDirectory}");
+        } else {
+            logger.LogInformation($"Directory already exists: {showDirectory}");
+        }
+    }
 }
 
 app.UseHttpsRedirection();
