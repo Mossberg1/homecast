@@ -42,13 +42,33 @@ A self-hosted API for managing and streaming movies and shows. Designed for lear
    dotnet ef database update
    ```
 
-4. **Run the application:**
+4. ** Add appsettings.json file to StreamingApplication Project and fill in required fields**
+ 
+   ```json
+   {
+        "Logging": {
+                "LogLevel": {
+                        "Default": "Information",
+                        "Microsoft.AspNetCore": "Warning"
+                }
+        },
+        "AllowedHosts": "*",
+        "JwtAuthentication": {
+                "SecretKey": "<Secret Key for jwt authentication>",
+                "Issuer": "https://localhost:7132",
+                "Audience": "https://localhost:7132"
+        }
+   }
+   ```
+
+
+5. **Run the application:**
 
    ```bash
    dotnet run
    ```
 
-5. **Access the API:** Open your browser and navigate to the url specified in the terminal.
+6. **Access the API:** Open your browser and navigate to the url specified in the terminal.
 
 ---
 
