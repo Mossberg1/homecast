@@ -19,15 +19,14 @@ A self-hosted API for managing and streaming movies and shows. Designed for lear
 ### Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- [SQLite](https://sqlite.org/) (pre-installed on most platforms)
-- Basic familiarity with .NET Core and command-line tools.
+- [SQLite](https://sqlite.org/)
 
 ### Installation
 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/streaming-api.git
+   git clone https://github.com/Mossberg1/homecast.git
    cd homecast
    ```
 
@@ -58,6 +57,8 @@ A self-hosted API for managing and streaming movies and shows. Designed for lear
 - In **Development** mode, the application will automatically create the following folders if they don't exist:
   - `MediaStorage/Movies`
   - `MediaStorage/Shows`
+
+These directories is for storing mediafiles during development, later i will add another storage location on the system for production.
 
 ---
 
