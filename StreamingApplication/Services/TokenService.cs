@@ -81,4 +81,16 @@ public class TokenService : ITokenService {
 
         return refreshToken.Token;
     }
+    
+    
+    /* Method to remove a refresh token from the database. */
+    public async Task<bool> RemoveRefreshTokenAsync(string id) {
+        var refreshToken = await _dbContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.UserId == id);
+        if (refreshToken == null) {
+            return false;
+        }
+
+        _dbContext.RefreshTokens.Remove(refreshToken);
+        return true;
+    }
 }

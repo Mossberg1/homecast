@@ -6,8 +6,12 @@ using StreamingApplication.Enumerations;
 namespace StreamingApplication.Data.Entities;
 
 public class Movie : BaseEntity {
-    [Required] public required string Name { get; set; }
-
+    
+    [Required]
+    [MaxLength(64)]
+    public required string Name { get; set; }
+    
+    [MaxLength(512)]
     public string? Description { get; set; }
     
     [Required]

@@ -12,6 +12,7 @@ using StreamingApplication.Forms;
 using StreamingApplication.Helpers;
 using StreamingApplication.Helpers.Response;
 
+
 namespace StreamingApplication.Services;
 
 public class UserService : IUserService {
@@ -23,8 +24,7 @@ public class UserService : IUserService {
     private readonly ILogger<UserService> _logger;
 
 
-    public UserService(UserManager<ApplicationUser> um, SignInManager<ApplicationUser> sim, ITokenService ts,
-        IMapper mapper, ApplicationDbContext dbContext, ILogger<UserService> logger) {
+    public UserService(UserManager<ApplicationUser> um, SignInManager<ApplicationUser> sim, ITokenService ts, IMapper mapper, ApplicationDbContext dbContext, ILogger<UserService> logger) {
         _userManager = um;
         _signInManager = sim;
         _tokenService = ts;
@@ -34,7 +34,10 @@ public class UserService : IUserService {
     }
 
 
-    /* Method to create a user with Base role. */
+    /*
+     * Method to create a user with Base role.
+     * If you create a admin user for the first time, the default admin user will be removed.
+     */
     public async Task<IdentityResult> CreateUserAsync(RegisterForm registerForm, string role) {
         var user = _mapper.Map<ApplicationUser>(registerForm);
 
@@ -45,6 +48,15 @@ public class UserService : IUserService {
             _logger.LogError($"Failed to create user: {res.Errors.First().Description}");
         } else {
             _logger.LogInformation($"User created: {user.UserName}");
+        }
+
+        if (role == UserRole.Admin) {
+            var baseAdmin = await _userManager.FindByNameAsync("admin");
+            if (baseAdmin != null) {
+                await _userManager.DeleteAsync(baseAdmin);
+                await _tokenService.RemoveRefreshTokenAsync(baseAdmin.Id);
+                _logger.LogInformation("Default admin user removed.");
+            }
         }
 
         return res;
