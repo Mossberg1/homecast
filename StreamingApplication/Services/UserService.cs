@@ -15,6 +15,7 @@ using StreamingApplication.Helpers.Response;
 
 namespace StreamingApplication.Services;
 
+
 public class UserService : IUserService {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
@@ -53,8 +54,10 @@ public class UserService : IUserService {
         if (role == UserRole.Admin) {
             var baseAdmin = await _userManager.FindByNameAsync("admin");
             if (baseAdmin != null) {
+                await _userManager.RemoveAuthenticationTokenAsync(baseAdmin, "StreamingApplication", "AccessToken");
+                await _tokenService.RemoveRefreshTokensAsync(baseAdmin.Id);
                 await _userManager.DeleteAsync(baseAdmin);
-                await _tokenService.RemoveRefreshTokenAsync(baseAdmin.Id);
+                
                 _logger.LogInformation("Default admin user removed.");
             }
         }

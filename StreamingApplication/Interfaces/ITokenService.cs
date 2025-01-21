@@ -6,5 +6,5 @@ namespace StreamingApplication.Interfaces;
 public interface ITokenService {
     public Task<string> GenerateTokenAsync(ApplicationUser user);
     public Task<string> GenerateRefreshTokenAsync(ApplicationUser user);
-    public Task<bool> RemoveRefreshTokenAsync(string id);
+    public Task<bool> RemoveRefreshTokensAsync(string id);
 }

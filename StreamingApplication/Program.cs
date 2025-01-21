@@ -123,7 +123,6 @@ builder.Services.AddSwaggerGen(options => {
 
 var sizeLimit = 5L * 1024 * 1024 * 1024; // 5 GB
 
-
 // Configure kestrel to allow larger requests to be able to upload media files.
 builder.WebHost.ConfigureKestrel(options => { options.Limits.MaxRequestBodySize = sizeLimit; });
 
