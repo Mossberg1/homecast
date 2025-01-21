@@ -35,11 +35,11 @@ public class AuthenticationController : ControllerBase {
     /*
      * Controller to logout current user.
      */
-    [HttpGet("logout")]
+    [HttpPost("logout")]
     [Authorize]
     public async Task<IActionResult> Logout() {
         await _userService.LogoutUserAsync();
-        return Ok();
+        return NoContent();
     }
 
 
