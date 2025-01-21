@@ -54,7 +54,7 @@ public class UserService : IUserService {
         if (role == UserRole.Admin) {
             var baseAdmin = await _userManager.FindByNameAsync("admin");
             if (baseAdmin != null) {
-                await _userManager.RemoveAuthenticationTokenAsync(baseAdmin, "StreamingApplication", "AccessToken");
+                await _signInManager.SignOutAsync();
                 await _tokenService.RemoveRefreshTokensAsync(baseAdmin.Id);
                 await _userManager.DeleteAsync(baseAdmin);
                 
@@ -63,6 +63,13 @@ public class UserService : IUserService {
         }
 
         return res;
+    }
+
+    /*
+     * Method to logout the current user.
+     */
+    public async Task LogoutUserAsync() {
+        await _signInManager.SignOutAsync();
     }
 
 

@@ -30,6 +30,17 @@ public class AuthenticationController : ControllerBase {
 
         return Ok(new { Message = "User was registered." });
     }
+    
+    
+    /*
+     * Controller to logout current user.
+     */
+    [HttpGet("logout")]
+    [Authorize]
+    public async Task<IActionResult> Logout() {
+        await _userService.LogoutUserAsync();
+        return Ok();
+    }
 
 
     /* Controller to login a user. */
